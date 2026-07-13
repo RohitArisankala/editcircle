@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+/* ── EditCircle dark-blue design tokens ───────────────────────── */
+@theme {
+  --color-ink-950: #05070f;
+  --color-ink-900: #070b18;
+  --color-ink-850: #0a1022;
+  --color-ink-800: #0e1630;
+  --color-ink-700: #142042;
+  --color-ink-600: #1c2c58;
+
+  --color-brand-300: #7ca8ff;
+  --color-brand-400: #4f83ff;
+  --color-brand-500: #2f66f6;
+  --color-brand-600: #1e4fd6;
+  --color-brand-700: #1a3fae;
+
+  --color-accent: #38bdf8;
+
+  /* Gold + silver accents (from The Edit Circle logo) */
+  --color-gold-200: #f8e6b0;
+  --color-gold-300: #f2d98b;
+  --color-gold-400: #e8c565;
+  --color-gold-500: #d4af37;
+  --color-gold-600: #b8912b;
+  --color-silver: #cdd6e6;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink-950);
+  color: #dce4f5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Ambient gradient wash behind the whole page */
+.bg-aurora {
+  background:
+    radial-gradient(60% 55% at 15% 0%, rgba(47, 102, 246, 0.18), transparent 60%),
+    radial-gradient(40% 40% at 92% 6%, rgba(212, 175, 55, 0.12), transparent 55%),
+    radial-gradient(45% 45% at 50% 100%, rgba(30, 79, 214, 0.14), transparent 60%),
+    var(--color-ink-950);
+}
+
+.glass {
+  background: linear-gradient(
+    180deg,
+    rgba(20, 32, 66, 0.55),
+    rgba(10, 16, 34, 0.55)
+  );
+  border: 1px solid rgba(124, 168, 255, 0.12);
+  backdrop-filter: blur(14px);
+}
+
+.glass-hover {
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-hover:hover {
+  border-color: rgba(124, 168, 255, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px -20px rgba(47, 102, 246, 0.55);
+}
+
+.text-gradient {
+  background: linear-gradient(120deg, #cfe0ff 0%, #4f83ff 55%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Gold shimmer for accents/headlines */
+.text-gold {
+  background: linear-gradient(
+    120deg,
+    #f8e6b0 0%,
+    #d4af37 45%,
+    #f2d98b 70%,
+    #b8912b 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-gold {
+  background: linear-gradient(120deg, #f2d98b 0%, #d4af37 55%, #b8912b 100%);
+  color: #0a1022;
+  box-shadow: 0 12px 30px -12px rgba(212, 175, 55, 0.6);
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+.btn-gold:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.ring-gold {
+  border-color: rgba(212, 175, 55, 0.35) !important;
+}
+
+.glow-ring {
+  box-shadow: 0 0 0 1px rgba(79, 131, 255, 0.25),
+    0 25px 70px -30px rgba(47, 102, 246, 0.8);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-600);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-700);
+}
+
+/* Marquee for the trusted-by strip */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+/* Subtle grain / grid overlay helper */
+.grid-lines {
+  background-image: linear-gradient(
+      rgba(124, 168, 255, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(124, 168, 255, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
