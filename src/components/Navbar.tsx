@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { site } from "@/lib/site";
 import { Logo } from "./Logo";
+import { StarBorder } from "./effects/StarBorder";
 
 const links = [
   { href: "#work", label: "Work" },
@@ -41,12 +42,7 @@ export function Navbar() {
               {l.label}
             </a>
           ))}
-          <a
-            href="#contact"
-            className="btn-gold rounded-full px-5 py-2 text-sm font-semibold"
-          >
-            Get started
-          </a>
+          <StarBorder href="#contact">Get started</StarBorder>
         </nav>
 
         {/* Mobile toggle */}

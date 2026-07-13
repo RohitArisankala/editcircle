@@ -1,4 +1,5 @@
 import { Reveal } from "./Reveal";
+import { ShinyText } from "./effects/ShinyText";
 
 export function SectionHeading({
   eyebrow,
@@ -13,9 +14,10 @@ export function SectionHeading({
 }) {
   return (
     <Reveal className={center ? "text-center" : ""}>
-      <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">
-        {eyebrow}
-      </span>
+      <ShinyText
+        text={eyebrow}
+        className="text-xs font-semibold uppercase tracking-[0.25em]"
+      />
       <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
         {title}
       </h2>

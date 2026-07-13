@@ -6,6 +6,7 @@ import type { VideoItem } from "@/lib/types";
 import { VideoCard } from "./VideoCard";
 import { VideoModal } from "./VideoModal";
 import { SectionHeading } from "./SectionHeading";
+import { Tilt } from "./effects/Tilt";
 
 export function PortfolioGrid({ videos }: { videos: VideoItem[] }) {
   const [active, setActive] = useState<string>("All");
@@ -50,7 +51,9 @@ export function PortfolioGrid({ videos }: { videos: VideoItem[] }) {
         className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
         {filtered.map((v, i) => (
-          <VideoCard key={v.id} video={v} index={i} onOpen={setSelected} />
+          <Tilt key={v.id} className="h-full">
+            <VideoCard video={v} index={i} onOpen={setSelected} />
+          </Tilt>
         ))}
       </motion.div>
 

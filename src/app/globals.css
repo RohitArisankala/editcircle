@@ -101,6 +101,8 @@ body {
 }
 
 .btn-gold {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(120deg, #f2d98b 0%, #d4af37 55%, #b8912b 100%);
   color: #0a1022;
   box-shadow: 0 12px 30px -12px rgba(212, 175, 55, 0.6);
@@ -109,6 +111,112 @@ body {
 .btn-gold:hover {
   filter: brightness(1.08);
   transform: translateY(-1px);
+}
+/* uiverse-style shine sweep on hover */
+.btn-gold::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 55%;
+  height: 100%;
+  transform: skewX(-20deg);
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+}
+.btn-gold:hover::after {
+  animation: btnShine 0.85s ease;
+}
+@keyframes btnShine {
+  to {
+    left: 130%;
+  }
+}
+
+/* React Bits StarBorder — moving glow around a pill */
+.star-border {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 9999px;
+  padding: 1.5px;
+}
+.star-border-bottom,
+.star-border-top {
+  position: absolute;
+  width: 300%;
+  height: 50%;
+  border-radius: 9999px;
+  opacity: 0.7;
+  z-index: 0;
+}
+.star-border-bottom {
+  bottom: -11px;
+  right: -250%;
+  animation: star-move-bottom linear infinite alternate;
+}
+.star-border-top {
+  top: -11px;
+  left: -250%;
+  animation: star-move-top linear infinite alternate;
+}
+.star-border-inner {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #0a1022, #0e1630);
+  color: var(--color-gold-300);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+@keyframes star-move-bottom {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+@keyframes star-move-top {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* React Bits ShinyText — sweeping gold shimmer */
+.shiny-text {
+  background: linear-gradient(
+    110deg,
+    var(--color-gold-500) 35%,
+    #fff6d6 50%,
+    var(--color-gold-500) 65%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 5s linear infinite;
+}
+@keyframes shine {
+  to {
+    background-position: -220% 0;
+  }
 }
 
 .ring-gold {

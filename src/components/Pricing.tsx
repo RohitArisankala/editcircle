@@ -8,6 +8,7 @@ import {
 import { site } from "@/lib/site";
 import { SectionHeading } from "./SectionHeading";
 import { Reveal } from "./Reveal";
+import { SpotlightCard } from "./effects/SpotlightCard";
 
 const icons: Record<string, LucideIcon> = {
   Sparkles,
@@ -32,7 +33,7 @@ export function Pricing() {
             const Icon = icons[p.icon] ?? Sparkles;
             return (
               <Reveal key={p.name} delay={(i % 2) * 0.08}>
-                <div className="glass glass-hover flex h-full flex-col rounded-2xl p-6">
+                <SpotlightCard className="glass glass-hover flex h-full flex-col rounded-2xl p-6">
                   <div className="flex items-center gap-3">
                     <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-gold-500/20 bg-gold-500/10 text-gold-300">
                       <Icon size={20} />
@@ -60,7 +61,7 @@ export function Pricing() {
                   <p className="mt-4 text-xs text-slate-500">
                     Extra revisions: {p.revision}
                   </p>
-                </div>
+                </SpotlightCard>
               </Reveal>
             );
           })}

@@ -2,6 +2,7 @@ import { User } from "lucide-react";
 import { site } from "@/lib/site";
 import { SectionHeading } from "./SectionHeading";
 import { Reveal } from "./Reveal";
+import { SpotlightCard } from "./effects/SpotlightCard";
 
 export function Team() {
   return (
@@ -17,7 +18,7 @@ export function Team() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {site.team.map((m, i) => (
             <Reveal key={i} delay={(i % 4) * 0.08}>
-              <div className="glass glass-hover h-full overflow-hidden rounded-2xl">
+              <SpotlightCard className="glass glass-hover h-full overflow-hidden rounded-2xl">
                 <div className="relative flex h-40 items-center justify-center bg-gradient-to-br from-ink-700 to-ink-850">
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gold-500/10 to-transparent" />
                   <span className="grid h-16 w-16 place-items-center rounded-full border border-gold-500/25 bg-ink-900/60 text-gold-300">
@@ -31,7 +32,7 @@ export function Team() {
                     {m.note}
                   </p>
                 </div>
-              </div>
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>

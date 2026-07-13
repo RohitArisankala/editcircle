@@ -7,6 +7,7 @@ import { site } from "@/lib/site";
 import type { VideoItem } from "@/lib/types";
 import { autoThumbnail } from "@/lib/embed";
 import { VideoModal } from "./VideoModal";
+import { Magnet } from "./effects/Magnet";
 
 export function Hero({ featured }: { featured: VideoItem | null }) {
   const [open, setOpen] = useState(false);
@@ -61,22 +62,26 @@ export function Hero({ featured }: { featured: VideoItem | null }) {
             transition={{ duration: 0.6, delay: 0.25 }}
             className="mt-8 flex flex-wrap items-center gap-4"
           >
-            <a
-              href="#work"
-              className="btn-gold inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold"
-            >
-              View work
-            </a>
-            {featured && (
-              <button
-                onClick={() => setOpen(true)}
-                className="group inline-flex items-center gap-3 rounded-full border border-brand-300/25 px-6 py-3 font-medium text-slate-200 transition hover:border-brand-300/60 hover:text-white"
+            <Magnet>
+              <a
+                href="#work"
+                className="btn-gold inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold"
               >
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-brand-500/80 transition group-hover:bg-brand-500">
-                  <Play size={16} className="ml-0.5 fill-white" />
-                </span>
-                Watch showreel
-              </button>
+                View work
+              </a>
+            </Magnet>
+            {featured && (
+              <Magnet>
+                <button
+                  onClick={() => setOpen(true)}
+                  className="group inline-flex items-center gap-3 rounded-full border border-brand-300/25 px-6 py-3 font-medium text-slate-200 transition hover:border-brand-300/60 hover:text-white"
+                >
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-brand-500/80 transition group-hover:bg-brand-500">
+                    <Play size={16} className="ml-0.5 fill-white" />
+                  </span>
+                  Watch showreel
+                </button>
+              </Magnet>
             )}
           </motion.div>
         </div>
