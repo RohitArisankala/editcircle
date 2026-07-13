@@ -22,7 +22,7 @@ const icons: Record<string, LucideIcon> = {
 
 export function Features() {
   return (
-    <section id="services" className="relative mx-auto max-w-6xl px-5 py-24">
+    <section id="services" className="relative mx-auto max-w-6xl px-5 py-16">
       <SectionHeading
         eyebrow="What we do"
         title="Everything you need to stand out"

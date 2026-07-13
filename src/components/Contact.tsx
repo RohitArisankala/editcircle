@@ -22,7 +22,7 @@ export function Contact() {
     "w-full rounded-xl border border-brand-300/15 bg-ink-900/60 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition focus:border-brand-400/60 focus:ring-2 focus:ring-brand-500/20";
 
   return (
-    <section id="contact" className="relative overflow-hidden py-24">
+    <section id="contact" className="relative overflow-hidden py-16">
       <div className="pointer-events-none absolute bottom-0 left-1/2 -z-10 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-brand-600/15 blur-3xl" />
       <div className="mx-auto max-w-6xl px-5">
         <SectionHeading

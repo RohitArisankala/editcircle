@@ -22,7 +22,7 @@ export function PortfolioGrid({ videos }: { videos: VideoItem[] }) {
   );
 
   return (
-    <section id="work" className="relative mx-auto max-w-6xl px-5 py-24">
+    <section id="work" className="relative mx-auto max-w-6xl px-5 py-16">
       <SectionHeading
         eyebrow="Selected Work"
         title="Edits that earn attention"

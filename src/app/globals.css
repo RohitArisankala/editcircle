@@ -44,6 +44,13 @@ body {
   overflow-x: hidden;
 }
 
+/* DarkVeil WebGL background canvas */
+.darkveil-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 /* Ambient gradient wash behind the whole page */
 .bg-aurora {
   background:

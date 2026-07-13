@@ -17,7 +17,7 @@ export function Hero({ featured }: { featured: VideoItem | null }) {
   return (
     <section
       id="top"
-      className="relative flex min-h-screen items-center overflow-hidden pt-28 pb-16"
+      className="relative flex min-h-[86vh] items-center overflow-hidden pt-28 pb-12"
     >
       <div className="grid-lines pointer-events-none absolute inset-0 opacity-40" />
 

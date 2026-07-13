@@ -13,7 +13,7 @@ const tools = [
 
 export function About() {
   return (
-    <section id="about" className="relative mx-auto max-w-6xl px-5 py-24">
+    <section id="about" className="relative mx-auto max-w-6xl px-5 py-16">
       <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
         <Reveal>
           <div className="glass relative aspect-square overflow-hidden rounded-3xl">

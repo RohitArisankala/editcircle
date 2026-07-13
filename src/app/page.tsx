@@ -9,6 +9,7 @@ import { Team } from "@/components/Team";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { DemoBanner } from "@/components/DemoBanner";
+import { Background } from "@/components/Background";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,8 @@ export default async function HomePage() {
   const featured = videos.find((v) => v.is_featured) ?? videos[0] ?? null;
 
   return (
-    <div className="bg-aurora min-h-screen">
+    <div className="relative min-h-screen">
+      <Background />
       {usingDemo && <DemoBanner />}
       <Navbar />
       <main>

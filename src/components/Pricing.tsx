@@ -18,7 +18,7 @@ const icons: Record<string, LucideIcon> = {
 
 export function Pricing() {
   return (
-    <section id="pricing" className="relative overflow-hidden py-24">
+    <section id="pricing" className="relative overflow-hidden py-16">
       <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-gold-500/10 blur-3xl" />
       <div className="mx-auto max-w-5xl px-5">
         <SectionHeading

@@ -5,7 +5,7 @@ import { Reveal } from "./Reveal";
 
 export function Team() {
   return (
-    <section id="team" className="relative overflow-hidden py-24">
+    <section id="team" className="relative overflow-hidden py-16">
       <div className="pointer-events-none absolute right-1/2 top-10 -z-10 h-64 w-[38rem] translate-x-1/2 rounded-full bg-brand-600/10 blur-3xl" />
       <div className="mx-auto max-w-6xl px-5">
         <SectionHeading
