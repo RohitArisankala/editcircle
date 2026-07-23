@@ -1,21 +1,44 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Send, Instagram } from "lucide-react";
+import { Mail, Send, Instagram, Loader2, CheckCircle2 } from "lucide-react";
 import { site } from "@/lib/site";
 import { SectionHeading } from "./SectionHeading";
 import { Reveal } from "./Reveal";
+import { sendMessage } from "@/lib/supabase/messages";
 
 export function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [error, setError] = useState<string | null>(null);
 
-  function submit(e: React.FormEvent) {
-    e.preventDefault();
+  function mailtoFallback() {
     const subject = encodeURIComponent(`New project enquiry from ${form.name}`);
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
     );
     window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
+  }
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setStatus("sending");
+    try {
+      const stored = await sendMessage(form);
+      if (stored) {
+        setStatus("sent");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        // Supabase not connected — fall back to the visitor's email client.
+        setStatus("idle");
+        mailtoFallback();
+      }
+    } catch {
+      setStatus("idle");
+      setError("Couldn't send just now — opening your email app instead.");
+      mailtoFallback();
+    }
   }
 
   const input =
@@ -109,13 +132,30 @@ export function Contact() {
                   className={`${input} resize-none`}
                 />
               </div>
-              <button
-                type="submit"
-                className="btn-gold mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold"
-              >
-                Send message
-                <Send size={16} />
-              </button>
+              {error && (
+                <p className="mt-4 text-sm text-amber-300">{error}</p>
+              )}
+              {status === "sent" ? (
+                <div className="mt-5 flex items-center justify-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-500/10 px-6 py-3 text-sm font-medium text-emerald-300">
+                  <CheckCircle2 size={18} /> Thanks — we&apos;ll be in touch soon!
+                </div>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="btn-gold mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold disabled:opacity-70"
+                >
+                  {status === "sending" ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" /> Sending…
+                    </>
+                  ) : (
+                    <>
+                      Send message <Send size={16} />
+                    </>
+                  )}
+                </button>
+              )}
             </form>
           </Reveal>
         </div>

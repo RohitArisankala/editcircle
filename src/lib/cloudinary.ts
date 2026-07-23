@@ -1,18 +1,16 @@
 "use client";
 
 /**
- * Cloudinary browser uploads via an UNSIGNED upload preset.
- * No server/secret needed — the browser posts straight to Cloudinary.
- * Configure NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME + NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET.
+ * Cloudinary browser uploads using a SIGNED flow.
+ * The browser asks our /api/cloudinary-sign route for a short-lived signature
+ * (the API secret never leaves the server), then uploads the file directly to
+ * Cloudinary. Only NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME is exposed to the client.
  */
 
 export const CLOUDINARY_CLOUD_NAME =
   process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ?? "";
-export const CLOUDINARY_UPLOAD_PRESET =
-  process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET ?? "";
 
-export const isCloudinaryConfigured =
-  CLOUDINARY_CLOUD_NAME.length > 0 && CLOUDINARY_UPLOAD_PRESET.length > 0;
+export const isCloudinaryConfigured = CLOUDINARY_CLOUD_NAME.length > 0;
 
 export interface CloudinaryResult {
   url: string;
@@ -22,29 +20,43 @@ export interface CloudinaryResult {
 
 type ResourceType = "video" | "image" | "auto";
 
-/** Uploads a file to Cloudinary, reporting progress (0–100). */
-export function uploadToCloudinary(
+export async function uploadToCloudinary(
   file: File,
   resourceType: ResourceType,
   onProgress?: (pct: number) => void
 ): Promise<CloudinaryResult> {
   if (!isCloudinaryConfigured) {
-    return Promise.reject(
-      new Error(
-        "Cloudinary isn't configured. Add NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME and NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET to .env.local."
-      )
+    throw new Error(
+      "Cloudinary isn't configured. Add NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME to .env.local."
     );
   }
 
-  const endpoint = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
-  const form = new FormData();
-  form.append("file", file);
-  form.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-  form.append("folder", "edit-circle");
+  // 1) Get a signature from our server (keeps the API secret server-side).
+  const signRes = await fetch("/api/cloudinary-sign", { method: "POST" });
+  if (!signRes.ok) {
+    if (signRes.status === 401)
+      throw new Error("Please sign in as admin before uploading.");
+    throw new Error(
+      "Cloudinary isn't set up on the server — check CLOUDINARY_API_KEY / CLOUDINARY_API_SECRET in .env.local."
+    );
+  }
+  const { signature, timestamp, apiKey, cloudName, folder } =
+    await signRes.json();
 
+  // 2) Upload the file straight to Cloudinary with the signature.
   return new Promise((resolve, reject) => {
+    const form = new FormData();
+    form.append("file", file);
+    form.append("api_key", apiKey);
+    form.append("timestamp", String(timestamp));
+    form.append("signature", signature);
+    form.append("folder", folder);
+
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", endpoint);
+    xhr.open(
+      "POST",
+      `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`
+    );
 
     xhr.upload.onprogress = (e) => {
       if (onProgress && e.lengthComputable) {
@@ -94,7 +106,6 @@ export function cloudinaryVideoPoster(url: string): string | null {
   if (!url.includes("res.cloudinary.com") || !url.includes("/video/upload/")) {
     return null;
   }
-  // Insert a start-offset transform and swap the extension to .jpg.
   return url
     .replace("/video/upload/", "/video/upload/so_0/")
     .replace(/\.(mp4|mov|webm|mkv|avi)$/i, ".jpg");

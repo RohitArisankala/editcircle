@@ -13,6 +13,7 @@ import {
   ExternalLink,
   Film,
   Link2,
+  Inbox,
 } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
@@ -123,6 +124,12 @@ export default function AdminPage() {
             </span>
           </Link>
           <div className="flex items-center gap-3">
+            <Link
+              href="/admin/messages"
+              className="inline-flex items-center gap-1.5 text-sm text-slate-300 transition hover:text-white"
+            >
+              <Inbox size={15} /> Messages
+            </Link>
             <Link
               href="/"
               target="_blank"

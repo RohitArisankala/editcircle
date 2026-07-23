@@ -45,5 +45,40 @@ create policy "Authenticated can delete videos"
   on public.videos for delete
   to authenticated using (true);
 
+-- 3) Contact messages -------------------------------------------
+create table if not exists public.messages (
+  id         uuid primary key default gen_random_uuid(),
+  name       text not null,
+  email      text not null,
+  message    text not null,
+  is_read    boolean not null default false,
+  created_at timestamptz not null default now()
+);
+
+alter table public.messages enable row level security;
+
+-- Anyone (a website visitor) can submit the contact form.
+drop policy if exists "Anyone can send a message" on public.messages;
+create policy "Anyone can send a message"
+  on public.messages for insert
+  to anon, authenticated
+  with check (true);
+
+-- Only the signed-in admin can read / update / delete messages.
+drop policy if exists "Authenticated can read messages" on public.messages;
+create policy "Authenticated can read messages"
+  on public.messages for select
+  to authenticated using (true);
+
+drop policy if exists "Authenticated can update messages" on public.messages;
+create policy "Authenticated can update messages"
+  on public.messages for update
+  to authenticated using (true) with check (true);
+
+drop policy if exists "Authenticated can delete messages" on public.messages;
+create policy "Authenticated can delete messages"
+  on public.messages for delete
+  to authenticated using (true);
+
 -- ✅ Done. Create your admin login under Dashboard → Authentication → Users.
 --    Video files are uploaded to Cloudinary (see README) — no Storage buckets needed.
