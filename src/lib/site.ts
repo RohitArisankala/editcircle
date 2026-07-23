@@ -11,12 +11,10 @@ export const site = {
   intro:
     "A video-editing studio crafting cinematic edits, punchy short-form, finance content and podcasts for creators and brands worldwide.",
   location: "Remote · Worldwide",
-  email: "hello@theeditcircle.com",
+  email: "theeditcircle@gmail.com",
   phone: "+91 00000 00000",
   socials: {
-    instagram: "https://instagram.com/",
-    youtube: "https://youtube.com/",
-    twitter: "https://twitter.com/",
+    instagram: "https://www.instagram.com/the_edit_circle",
   },
 
   // "Everything You Need" — value props (adapted for an editing studio).
@@ -116,9 +114,8 @@ export const site = {
         title: "Studio",
         links: [
           { label: "Work", href: "#work" },
-          { label: "Services", href: "#services" },
           { label: "Pricing", href: "#pricing" },
-          { label: "Team", href: "#team" },
+          { label: "About", href: "#about" },
         ],
       },
       {

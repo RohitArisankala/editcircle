@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, Instagram, Youtube, Twitter } from "lucide-react";
+import { Mail, MapPin, Instagram } from "lucide-react";
 import { site } from "@/lib/site";
 import { Logo } from "./Logo";
 
@@ -22,29 +22,19 @@ export function Footer() {
                 <Mail size={15} className="text-gold-400" /> {site.email}
               </a>
               <div className="flex items-center gap-2">
-                <Phone size={15} className="text-gold-400" /> {site.phone}
-              </div>
-              <div className="flex items-center gap-2">
                 <MapPin size={15} className="text-gold-400" /> {site.location}
               </div>
             </div>
             <div className="mt-5 flex gap-3">
-              {[
-                { href: site.socials.instagram, Icon: Instagram, label: "Instagram" },
-                { href: site.socials.youtube, Icon: Youtube, label: "YouTube" },
-                { href: site.socials.twitter, Icon: Twitter, label: "Twitter" },
-              ].map(({ href, Icon, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={label}
-                  className="grid h-9 w-9 place-items-center rounded-lg border border-gold-500/15 text-slate-300 transition hover:border-gold-500/50 hover:text-gold-300"
-                >
-                  <Icon size={16} />
-                </a>
-              ))}
+              <a
+                href={site.socials.instagram}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="inline-flex items-center gap-2 rounded-lg border border-gold-500/15 px-3 py-2 text-sm text-slate-300 transition hover:border-gold-500/50 hover:text-gold-300"
+              >
+                <Instagram size={16} /> @the_edit_circle
+              </a>
             </div>
           </div>
 

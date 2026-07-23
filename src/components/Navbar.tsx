@@ -9,8 +9,8 @@ import { StarBorder } from "./effects/StarBorder";
 
 const links = [
   { href: "#work", label: "Work" },
-  { href: "#services", label: "Services" },
   { href: "#pricing", label: "Pricing" },
+  { href: "#about", label: "About" },
 ];
 
 export function Navbar() {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Send, Instagram, Youtube, Twitter } from "lucide-react";
+import { Mail, Send, Instagram } from "lucide-react";
 import { site } from "@/lib/site";
 import { SectionHeading } from "./SectionHeading";
 import { Reveal } from "./Reveal";
@@ -57,27 +57,9 @@ export function Contact() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Instagram"
-                  className="grid h-10 w-10 place-items-center rounded-xl border border-brand-300/15 text-slate-300 transition hover:border-brand-300/50 hover:text-white"
+                  className="inline-flex items-center gap-2 rounded-xl border border-brand-300/15 px-4 py-2.5 text-sm text-slate-300 transition hover:border-gold-500/50 hover:text-white"
                 >
-                  <Instagram size={18} />
-                </a>
-                <a
-                  href={site.socials.youtube}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="YouTube"
-                  className="grid h-10 w-10 place-items-center rounded-xl border border-brand-300/15 text-slate-300 transition hover:border-brand-300/50 hover:text-white"
-                >
-                  <Youtube size={18} />
-                </a>
-                <a
-                  href={site.socials.twitter}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Twitter"
-                  className="grid h-10 w-10 place-items-center rounded-xl border border-brand-300/15 text-slate-300 transition hover:border-brand-300/50 hover:text-white"
-                >
-                  <Twitter size={18} />
+                  <Instagram size={18} /> @the_edit_circle
                 </a>
               </div>
             </div>
