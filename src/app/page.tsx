@@ -6,19 +6,17 @@ import { Pricing } from "@/components/Pricing";
 import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { DemoBanner } from "@/components/DemoBanner";
 import { Background } from "@/components/Background";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const { videos, usingDemo } = await getVideos();
+  const { videos } = await getVideos();
   const featured = videos.find((v) => v.is_featured) ?? videos[0] ?? null;
 
   return (
     <div className="relative min-h-screen">
       <Background />
-      {usingDemo && <DemoBanner />}
       <Navbar />
       <main>
         <Hero featured={featured} />

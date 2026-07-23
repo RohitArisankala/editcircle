@@ -103,9 +103,14 @@ export default function DarkVeil({
     if (!parent) return;
 
     const renderer = new Renderer({
-      dpr: Math.min(window.devicePixelRatio, 2),
+      // Cap DPR to keep the full-screen shader light on high-density / mobile.
+      dpr: Math.min(window.devicePixelRatio, 1.5),
       canvas,
     });
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
     const gl = renderer.gl;
     const geometry = new Triangle(gl);
@@ -139,19 +144,26 @@ export default function DarkVeil({
     const start = performance.now();
     let frame = 0;
 
-    const loop = () => {
-      program.uniforms.uTime.value =
-        ((performance.now() - start) / 1000) * speed;
+    const draw = (t: number) => {
+      program.uniforms.uTime.value = t * speed;
       program.uniforms.uHueShift.value = hueShift;
       program.uniforms.uNoise.value = noiseIntensity;
       program.uniforms.uScan.value = scanlineIntensity;
       program.uniforms.uScanFreq.value = scanlineFrequency;
       program.uniforms.uWarp.value = warpAmount;
       renderer.render({ scene: mesh });
-      frame = requestAnimationFrame(loop);
     };
 
-    loop();
+    if (reduceMotion) {
+      // Respect reduced-motion: paint a single static frame, no loop.
+      draw(6);
+    } else {
+      const loop = () => {
+        draw((performance.now() - start) / 1000);
+        frame = requestAnimationFrame(loop);
+      };
+      loop();
+    }
 
     return () => {
       cancelAnimationFrame(frame);
